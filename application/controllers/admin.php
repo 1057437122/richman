@@ -24,8 +24,12 @@ class Admin extends CI_Controller {
 	}
 	public function index()
 	{
-		$this->load->view('admin');
+		$this->load->view('admin/index');
 	}
+	public function weweb(){//for the we site
+		
+	}
+	
 	public function wechat($item='',$op='',$id=''){
 		switch($item){
 			case '':
@@ -93,6 +97,27 @@ class Admin extends CI_Controller {
 					$this->load->view('admin/header.php',$this->data);
 					$this->load->view('admin/wechat/autoreponse/index.php',$this->data);
 					$this->load->view('admin/footer.php');
+				}elseif($op=='add_single'){
+					$this->load->helper('form');
+					$this->load->library('form_validation');
+					
+					$this->form_validation->set_rules('title','title','required');
+					$this->form_validation->set_rules('answer','answer','required');
+					$this->form_validation->set_rules('introduce','introduce','required');
+					
+					if($this->form_validation->run()===false){
+						$this->load->view('admin/header',$this->data);
+						$this->load->view('admin/wechat/autoreponse/add_single',$this->data);
+						$this->load->view('admin/footer');
+					}else{
+						//execute the sql and insert item
+						// if($this->autoresponse_model->add()){
+							// $this->load->view('admin/success');
+						// }else{
+							// $this->load->view('admin/fail');
+						// }
+						
+					}
 				}else{//show all the autoresonse items
 					if(!file_exists('application/views/admin/wechat/autoreponse/index.php')){
 						show_404();

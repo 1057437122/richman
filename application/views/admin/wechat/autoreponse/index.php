@@ -1,4 +1,5 @@
 <a href=<?php echo $base_url.'index.php/admin/wechat/autoresponse/add';?>>添加</a>
+<a href=<?php echo $base_url.'index.php/admin/wechat/autoresponse/add_single';?>>添加单图文内容</a>
 <br>
 <div class="Id">ID</div><div class="title">TITLE</div><div class="introcude">INTRODUCE</div><div class="answer">ANSWER</div><br>
 <?php foreach($autoresponse_list as $item):?>
