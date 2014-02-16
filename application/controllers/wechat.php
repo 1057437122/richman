@@ -3,7 +3,7 @@
   * wechat php test
   */
 #these for line is just for signature the website so ..
-#define('TOKEN','leepine');
+define('TOKEN','leepine');
 #$we=new Wechat();
 #$we->valid();
 #$we->responseMsg();
