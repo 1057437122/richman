@@ -9,7 +9,7 @@ define('TOKEN','leepine');
 #$we->responseMsg();
 class Wechat extends CI_Controller
 {
-	public function valid()
+	public function valid1()
     {
         $echoStr = $_GET["echostr"];
 
@@ -20,7 +20,8 @@ class Wechat extends CI_Controller
         }
     }
 
-    public function responseMsg()
+   # public function responseMsg()
+    public function valid()
     {
 		//get post data, May be due to the different environments
 	$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
