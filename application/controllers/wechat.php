@@ -4,7 +4,6 @@
   */
 
 //define your token
-echo 'nice';
 define("TOKEN", "leepine");
 $wechatObj = new Wechat();
 $wechatObj->valid();
