@@ -2,9 +2,11 @@
 /**
   * wechat php test
   */
-define('TOKEN','leepine');
+#these for line is just for signature the website so ..
+#define('TOKEN','leepine');
 $we=new Wechat();
-$we->valid();
+#$we->valid();
+$we->responseMsg();
 class Wechat extends CI_Controller
 {
 	public function valid()
