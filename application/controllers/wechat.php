@@ -4,9 +4,9 @@
   */
 #these for line is just for signature the website so ..
 #define('TOKEN','leepine');
-$we=new Wechat();
+#$we=new Wechat();
 #$we->valid();
-$we->responseMsg();
+#$we->responseMsg();
 class Wechat extends CI_Controller
 {
 	public function valid()
