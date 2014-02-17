@@ -6,25 +6,22 @@
 class Wecore
 {
 	public function __construct(){
-		$MsgType='text';//default text message
-		$ToUserName='';
-		$FromUserName='';
-		$Content='';
-		$MsgId='';
+		$postObj='';//contains all the information of the message user sent
 	}
 	public function init(){
 		$postStr=$GLOBALS['HTTP_RAW_POST_DATA'];
 		if(!empty($postStr)){
-			$postObj=simplexml_load_string($postStr,'SimpleXMLElement',LIBXML_NOCDATA);
-			$this->FromUserName=$postObj->FromUserName;
-			$this->ToUserName=$postObj->ToUserName;
-			$this->MsgType=$postObj->MsgType;
-			$this->MsgId=$postObj->MsgId;//for weight
+			$this->postObj=simplexml_load_string($postStr,'SimpleXMLElement',LIBXML_NOCDATA);
 		}
 	}
 	public function response(){
-		$msg=$this->MsgType;
-		$this->send_text_msg($msg);
+		$msg=$this->postObj->MsgType;
+		if($msg=='event' && $this->postObj->Event=='subscribe'){
+			$ret='welcome to subscribe me~~~';
+		}else{
+			$ret=$msg;
+		}
+		$this->send_text_msg($ret);
 	}
 	public function send_text_msg($msg){//send text message
 		$textTpl = "<xml>
@@ -36,7 +33,7 @@ class Wecore
 			<FuncFlag>0</FuncFlag>
 			</xml>";
 		$time=time();
-		$resultStr=sprintf($textTpl,$this->FromUserName,$this->ToUserName,$time,$msg);
+		$resultStr=sprintf($textTpl,$this->postObj->FromUserName,$this->postObj->ToUserName,$time,$msg);
 		echo $resultStr;
 	}
 	public function get_msg(){//get the 
