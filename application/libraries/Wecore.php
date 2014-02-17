@@ -10,6 +10,7 @@ class Wecore
 		$ToUserName='';
 		$FromUserName='';
 		$Content='';
+		$MsgId='';
 	}
 	public function init(){
 		$postStr=$GLOBALS['HTTP_RAW_POST_DATA'];
@@ -17,7 +18,13 @@ class Wecore
 			$postObj=simplexml_load_string($postStr,'SimpleXMLElement',LIBXML_NOCDATA);
 			$this->FromUserName=$postObj->FromUserName;
 			$this->ToUserName=$postObj->ToUserName;
+			$this->MsgType=$postObj->MsgType;
+			$this->MsgId=$postObj->MsgId;//for weight
 		}
+	}
+	public function response(){
+		$msg=$this->MsgType;
+		$this->send_text_msg($msg);
 	}
 	public function send_text_msg($msg){//send text message
 		$textTpl = "<xml>

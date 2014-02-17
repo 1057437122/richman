@@ -3,7 +3,7 @@
   * wechat php test
   */
 #these for line is just for signature the website so ..
-define('TOKEN','leepine');
+#define('TOKEN','leepine');
 #$we=new Wechat();
 #$we->valid();
 #$we->responseMsg();
@@ -30,7 +30,7 @@ class Wechat extends CI_Controller
     {
 	    //$this->Wecore->tst();
 	    $this->wecore->init();
-	    $this->wecore->send_text_msg('tst');
+	    $this->wecore->response();
 		//get post data, May be due to the different environments
 #	$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
 #
