@@ -36,7 +36,7 @@ class Wecore
 			<FuncFlag>0</FuncFlag>
 			</xml>";
 		$time=time();
-		$resultStr=sprintf($textTpl,$this->FromUserName,$this->ToUserName,$time,msg);
+		$resultStr=sprintf($textTpl,$this->FromUserName,$this->ToUserName,$time,$msg);
 		echo $resultStr;
 	}
 	public function get_msg(){//get the 
