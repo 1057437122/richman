@@ -11,8 +11,8 @@ class Wechat extends CI_Controller
 {
 	public function __construct(){
 		parrent::__construct();
-		$this->load->helper('url');
-#	$this->load->library('Wecore');
+#		$this->load->helper('url');
+		$this->load->library('wecore');
 	}
 	public function valid1()
     {
@@ -28,9 +28,9 @@ class Wechat extends CI_Controller
    # public function responseMsg()
     public function valid()
     {
-	    $this->Wecore->tst();
-	    //$this->Wecore->init();
-	    //$this->Wecore->send_text_msg('tst');
+	    //$this->Wecore->tst();
+	    $this->wecore->init();
+	    $this->wecore->send_text_msg('tst');
 		//get post data, May be due to the different environments
 #	$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
 #
