@@ -1,4 +1,4 @@
-<?php if(! define('BASEPATH')) exit('No Direct script access allowed');
+<?php if(! defined('BASEPATH')) exit('No Direct script access allowed');
 /**
   * wechat core class 
   */
@@ -29,7 +29,7 @@ class Wecore
 			<FuncFlag>0</FuncFlag>
 			</xml>";
 		$time=time();
-		$resultStr=sprintf($textTpl,$this->FromuserName,$this->ToUserName,$time,msg);
+		$resultStr=sprintf($textTpl,$this->FromUserName,$this->ToUserName,$time,msg);
 		echo $resultStr;
 	}
 	public function get_msg(){//get the 
