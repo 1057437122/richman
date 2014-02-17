@@ -1,76 +1,41 @@
-<?php
+<?php if(! define('BASEPATH')) exit('No Direct script access allowed');
 /**
-  * wechat php test
+  * wechat core class 
   */
 
 class Wecore
 {
-	public function valid()
-    {
-        $echoStr = $_GET["echostr"];
-
-        //valid signature , option
-        if($this->checkSignature()){
-        	echo $echoStr;
-        	exit;
-        }
-    }
-
-    public function responseMsg()
-    {
-		//get post data, May be due to the different environments
-		$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-
-      	//extract post data
-		if (!empty($postStr)){
-                
-              	$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-                $fromUsername = $postObj->FromUserName;
-                $toUsername = $postObj->ToUserName;
-                $keyword = trim($postObj->Content);
-                $time = time();
-                $textTpl = "<xml>
-							<ToUserName><![CDATA[%s]]></ToUserName>
-							<FromUserName><![CDATA[%s]]></FromUserName>
-							<CreateTime>%s</CreateTime>
-							<MsgType><![CDATA[%s]]></MsgType>
-							<Content><![CDATA[%s]]></Content>
-							<FuncFlag>0</FuncFlag>
-							</xml>";             
-				if(!empty( $keyword ))
-                {
-              		$msgType = "text";
-                	$contentStr = "Welcome to wechat world!";
-                	$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                	echo $resultStr;
-                }else{
-                	echo "Input something...";
-                }
-
-        }else {
-        	echo "";
-        	exit;
-        }
-    }
-		
-	private function checkSignature()
-	{
-        $signature = $_GET["signature"];
-        $timestamp = $_GET["timestamp"];
-        $nonce = $_GET["nonce"];	
-        		
-		$token = TOKEN;
-		$tmpArr = array($token, $timestamp, $nonce);
-		sort($tmpArr);
-		$tmpStr = implode( $tmpArr );
-		$tmpStr = sha1( $tmpStr );
-		
-		if( $tmpStr == $signature ){
-			return true;
-		}else{
-			return false;
+	public function __construct(){
+		$MsgType='text';//default text message
+		$ToUserName='';
+		$FromUserName='';
+		$Content='';
+	}
+	public function init(){
+		$postStr=$GLOBALS['HTTP_RAW_POST_DATA'];
+		if(!empty($postStr)){
+			$postObj=simplexml_load_string($postStr,'SimpleXMLElement',LIBXML_NOCDATA);
+			$this->FromUserName=$postObj->FromUserName;
+			$this->ToUserName=$postObj->ToUserName;
 		}
 	}
-}
+	public function send_text_msg($msg){//send text message
+		$textTpl = "<xml>
+			<ToUserName><![CDATA[%s]]></ToUserName>
+			<FromUserName><![CDATA[%s]]></FromUserName>
+			<CreateTime>%s</CreateTime>
+			<MsgType><![CDATA[text]]></MsgType>
+			<Content><![CDATA[%s]]></Content>
+			<FuncFlag>0</FuncFlag>
+			</xml>";
+		$time=time();
+		$resultStr=sprintf($textTpl,$this->FromuserName,$this->ToUserName,$time,msg);
+		echo $resultStr;
+	}
+	public function get_msg(){//get the 
+	}
+	public function tst(){
+		echo 'nice';
+	}
 /*End of file Wecore.php */
 /*location:application/libraries */
