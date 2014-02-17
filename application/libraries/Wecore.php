@@ -37,5 +37,6 @@ class Wecore
 	public function tst(){
 		echo 'nice';
 	}
+}
 /*End of file Wecore.php */
 /*location:application/libraries */
