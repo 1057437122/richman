@@ -55,6 +55,8 @@ class Admin extends CI_Controller {
 					if(!file_exists('application/views/admin/wechat/autoreponse/index.php')){
 						show_404();
 					}
+					$this->data['autoresponse_list']=$this->autoresponse_model->get_all_response();
+					
 					$this->load->view('admin/header.php',$this->data);
 					$this->load->view('admin/wechat/autoreponse/index.php',$this->data);
 					$this->load->view('admin/footer.php');

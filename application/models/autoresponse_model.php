@@ -8,7 +8,17 @@ class Autoresponse_model extends CI_Model{
 	public function __construct(){
 		$this->load->database();
 	}
-	
+	public function get_answer($title=FALSE){
+		if($title===FALSE){
+			return '';
+		}
+		$query=$this->db->get_where('rich_autoresponse', array('title' => $title));
+		return $query->row_array();
+	}
+	public function get_all_response(){	
+		$query=$this->db->get('rich_autoresponse');
+		return $query->result_array();
+	}
 	public function add(){
 		$data=array(
 			'title'=>$this->input->post('title'),

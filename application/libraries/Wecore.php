@@ -14,10 +14,14 @@ class Wecore
 			$this->postObj=simplexml_load_string($postStr,'SimpleXMLElement',LIBXML_NOCDATA);
 		}
 	}
-	public function response(){
-		$msg=$this->postObj->MsgType;
-		if($msg=='event' && $this->postObj->Event=='subscribe'){
-			$ret='welcome to subscribe me~~~';
+	public function response($msg=FALSE){
+		if($msg===FALSE){
+			$msg=$this->postObj->MsgType;
+			if($msg=='event' && $this->postObj->Event=='subscribe'){
+				$ret='welcome to subscribe me~~~';
+			}else{
+				$ret=$msg;
+			}
 		}else{
 			$ret=$msg;
 		}
