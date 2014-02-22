@@ -17,6 +17,11 @@ class Admin extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function __construct(){
+		parent::__construct();
+		$this->data['base_url']=$this->config->item('base_url');
+		$this->load->model('autoresponse_model');
+	}
 	public function index()
 	{
 		$this->load->view('admin');
@@ -28,16 +33,31 @@ class Admin extends CI_Controller {
 				break;//index page
 			case 'autoresponse':
 				if($op=='add'){//add auto response items
-					if(!file_exists('application/views/admin/wechat/autoreponse/add.php')){
-						show_404();
-					}
+					$this->load->helper('form');
+					$this->load->library('form_validation');
 					
-					$this->load->view('admin/wechat/autoreponse/add.php');
+					$this->form_validation->set_rules('title','title','required');
+					$this->form_validation->set_rules('answer','answer','required');
+					
+					if($this->form_validation->run()===false){
+						$this->load->view('admin/header',$this->data);
+						$this->load->view('admin/wechat/autoreponse/add',$this->data);
+						$this->load->view('admin/footer');
+					}else{
+						//execute the sql and insert item
+						$this->autoresponse_model->add();
+						$this->load->view('admin/success');
+					}
 					
 				}elseif($op=='del'){
 					echo 'del autoresonse item ,unfinished';
-				}else{
-					echo 'other operations';
+				}else{//show all the autoresonse items
+					if(!file_exists('application/views/admin/wechat/autoreponse/index.php')){
+						show_404();
+					}
+					$this->load->view('admin/header.php',$this->data);
+					$this->load->view('admin/wechat/autoreponse/index.php',$this->data);
+					$this->load->view('admin/footer.php');
 				}
 				break;//case autoresponse
 			default:

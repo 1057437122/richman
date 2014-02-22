@@ -1,0 +1,1 @@
+<a href=<?php echo $base_url.'/index.php/admin/wechat/autoresponse/add';?>>Ìí¼Ó</a>
