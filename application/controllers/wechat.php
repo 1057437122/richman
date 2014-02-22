@@ -23,8 +23,9 @@ class Wechat extends CI_Controller
         	// echo $echoStr;
         	// exit;
         // }
+		$request='fse';
 		$this->load->model('autoresponse_model');
-		$msg=$this->autoresponse_model->get_answer('rich_autoresponse', array('title' => $request));
+		$msg=$this->autoresponse_model->get_answer($request);
 		print_r($msg);
     }
 
@@ -35,9 +36,9 @@ class Wechat extends CI_Controller
 	    $this->wecore->init();
 		$request=$this->wecore->postObj->Content;
 		$this->load->model('autoresponse_model');
-		$msg=$this->autoresponse_model->get_answer('rich_autoresponse', array('title' => $request));
+		$msg=$this->autoresponse_model->get_answer($request);
 		//$msg=array('0'=>array('answer'=>'nice'));
-	    $this->wecore->response($msg[0]['answer']);
+	    $this->wecore->response($msg['answer']);
 		//get post data, May be due to the different environments
 #	$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
 #
