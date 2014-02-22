@@ -35,10 +35,11 @@ class Wechat extends CI_Controller
 	    //$this->Wecore->tst();
 	    $this->wecore->init();
 		$request=$this->wecore->postObj->Content;
-		$this->load->model('autoresponse_model');
-		$msg=$this->autoresponse_model->get_answer($request);
-		//$msg=array('0'=>array('answer'=>'nice'));
-	    $this->wecore->response($msg['answer']);
+		// $this->load->model('autoresponse_model');
+		// $msg=$this->autoresponse_model->get_answer($request);
+		
+	    $this->wecore->response($request);
+	    // $this->wecore->response($msg['answer']);
 		//get post data, May be due to the different environments
 #	$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
 #
