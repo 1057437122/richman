@@ -16,13 +16,16 @@ class Wechat extends CI_Controller
 	}
 	public function valid1()
     {
-        $echoStr = $_GET["echostr"];
+        // $echoStr = $_GET["echostr"];
 
         //valid signature , option
-        if($this->checkSignature()){
-        	echo $echoStr;
-        	exit;
-        }
+        // if($this->checkSignature()){
+        	// echo $echoStr;
+        	// exit;
+        // }
+		$this->load->model('autoresponse_model');
+		$msg=$this->autoresponse_model->get_answer('rich_autoresponse', array('title' => $request));
+		print_r($msg);
     }
 
    # public function responseMsg()
@@ -31,8 +34,8 @@ class Wechat extends CI_Controller
 	    //$this->Wecore->tst();
 	    $this->wecore->init();
 		$request=$this->wecore->postObj->Content;
-		// $this->load->model('autoresponse_model');
-		// $msg=$this->autoresponse_model->get_where('rich_autoresponse', array('title' => $request));
+		$this->load->model('autoresponse_model');
+		$msg=$this->autoresponse_model->get_answer('rich_autoresponse', array('title' => $request));
 		$msg=array('0'=>array('answer'=>'nice'));
 	    $this->wecore->response($msg[0]['answer']);
 		//get post data, May be due to the different environments
