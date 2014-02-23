@@ -13,6 +13,7 @@ class Wechat extends CI_Controller
 		parent::__construct();
 #		$this->load->helper('url');
 		$this->load->library('wecore');
+		$this->welcome='欢迎关注Leepine，回复“聚会时间”获得长春里教堂一周的聚会时间，回复“事工宣布”获得长春里教堂的事工';
 	}
 	public function valid1()
     {
@@ -23,58 +24,25 @@ class Wechat extends CI_Controller
         	// echo $echoStr;
         	// exit;
         // }
-		$request='fse';
-		$this->load->model('autoresponse_model');
-		$msg=$this->autoresponse_model->get_answer($request);
-		print_r($msg);
+		// $request='fse';
+		// $this->load->model('autoresponse_model');
+		// $msg=$this->autoresponse_model->get_answer($request);
+		// print_r($msg);
     }
 
-   # public function responseMsg()
     public function valid()
     {
-	    //$this->Wecore->tst();
 	    $this->wecore->init();
-		$request=(string)$this->wecore->postObj->Content;
-		$this->load->model('autoresponse_model');
-		if(!$msg=$this->autoresponse_model->get_answer($request)){
-			$msg=array('answer'=>'nothing');
+		if($this->wecore->postObj->MsgType=='text'){//text type
+			$request=(string)$this->wecore->postObj->Content;
+			$this->load->model('autoresponse_model');
+			if(!$msg=$this->autoresponse_model->get_answer($request)){
+				$msg=array('answer'=>$this->welcome);
+			}
+		}else{//other type
+			$msg=array('answer'=>$this->welcome);
 		}
-		
 	    $this->wecore->response($msg['answer']);
-	    // $this->wecore->response($msg['answer']);
-		//get post data, May be due to the different environments
-#	$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-#
-#      	//extract post data
-#	if (!empty($postStr)){
-#                
-#		$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-#		$fromUsername = $postObj->FromUserName;
-#		$toUsername = $postObj->ToUserName;
-#		$keyword = trim($postObj->Content);
-#		$time = time();
-#		$textTpl = "<xml>
-#			<ToUserName><![CDATA[%s]]></ToUserName>
-#			<FromUserName><![CDATA[%s]]></FromUserName>
-#			<CreateTime>%s</CreateTime>
-#			<MsgType><![CDATA[%s]]></MsgType>
-#			<Content><![CDATA[%s]]></Content>
-#			<FuncFlag>0</FuncFlag>
-#			</xml>";             
-#		if(!empty( $keyword ))
-#		{
-#			$msgType = "text";
-#			$contentStr = "Welcome to wechat world!";
-#			$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-#			echo $resultStr;
-#		}else{
-#			echo "Input something...";
-#		}
-#
-#        }else {
-#        	echo "aaa";
-#        	exit;
-#        }
     }
 		
 	private function checkSignature()

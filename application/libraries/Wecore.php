@@ -16,12 +16,7 @@ class Wecore
 	}
 	public function response($msg=FALSE){
 		if($msg===FALSE){
-			$msg=$this->postObj->MsgType;
-			if($msg=='event' && $this->postObj->Event=='subscribe'){
-				$ret='welcome to subscribe me~~~';
-			}else{
-				$ret=$msg;
-			}
+			$ret='welcome to subscribe me~~~';
 		}else{
 			$ret=$msg;
 		}
