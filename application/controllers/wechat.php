@@ -24,10 +24,10 @@ class Wechat extends CI_Controller
         	// echo $echoStr;
         	// exit;
         // }
-		// $request='fse';
-		// $this->load->model('autoresponse_model');
-		// $msg=$this->autoresponse_model->get_answer($request);
-		// print_r($msg);
+		$request='fse';
+		$this->load->model('autoresponse_model');
+		$msg=$this->autoresponse_model->get_answer($request);
+		print_r($msg);
     }
 
     public function valid()

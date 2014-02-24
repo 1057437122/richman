@@ -26,7 +26,7 @@ class Admin extends CI_Controller {
 	{
 		$this->load->view('admin');
 	}
-	public function wechat($item='',$op=''){
+	public function wechat($item='',$op='',$id=''){
 		switch($item){
 			case '':
 				echo 'add pages later ,wechat background index page';
@@ -45,12 +45,30 @@ class Admin extends CI_Controller {
 						$this->load->view('admin/footer');
 					}else{
 						//execute the sql and insert item
-						$this->autoresponse_model->add();
-						$this->load->view('admin/success');
+						if($this->autoresponse_model->add()){
+							$this->load->view('admin/success');
+						}else{
+							$this->load->view('admin/fail');
+						}
+						
 					}
 					
-				}elseif($op=='del'){
-					echo 'del autoresonse item ,unfinished';
+				}elseif($op=='edit'){
+					echo "edit ''";
+				}elseif($op=='Setinactive'){
+					$this->autoresponse_model->Setinactive($id);
+					$this->data['autoresponse_list']=$this->autoresponse_model->get_all_response();
+					
+					$this->load->view('admin/header.php',$this->data);
+					$this->load->view('admin/wechat/autoreponse/index.php',$this->data);
+					$this->load->view('admin/footer.php');
+				}elseif($op=='Setactive'){
+					$this->autoresponse_model->Setactive($id);
+					$this->data['autoresponse_list']=$this->autoresponse_model->get_all_response();
+					
+					$this->load->view('admin/header.php',$this->data);
+					$this->load->view('admin/wechat/autoreponse/index.php',$this->data);
+					$this->load->view('admin/footer.php');
 				}else{//show all the autoresonse items
 					if(!file_exists('application/views/admin/wechat/autoreponse/index.php')){
 						show_404();
