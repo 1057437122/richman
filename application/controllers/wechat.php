@@ -34,10 +34,23 @@ class Wechat extends CI_Controller
     {
 	    $this->wecore->init();
 		if($this->wecore->postObj->MsgType=='text'){//text type
-			$request=(string)$this->wecore->postObj->Content;
-			$this->load->model('autoresponse_model');
-			if(!$msg=$this->autoresponse_model->get_answer($request)){
-				$msg=array('answer'=>$this->welcome);
+			$request=trim((string)$this->wecore->postObj->Content);
+			$pos=strpos($request,' ');//get the position of the blank
+			$pre=substr($request,0,$pos);//get the prefix of the request
+			if($pre==='建议'){//suggestions
+				$suggestion=trim(substr($request,$pos));
+				$username=$this->wecore->postObj->FromUserName;
+				$this->load->model('suggestion_model');
+				if($this->suggestion_model->save_suggestion($suggestion,$username)){
+					$msg=array('answer'=>'你的建议已经提交，感谢您的参与，谢谢，愿神祝福你');
+				}else{
+					$msg=array('answer'=>$this->welcome);
+				}
+			}else{//auto response
+				$this->load->model('autoresponse_model');
+				if(!$msg=$this->autoresponse_model->get_answer($request)){
+					$msg=array('answer'=>$this->welcome);
+				}
 			}
 		}else{//other type
 			$msg=array('answer'=>$this->welcome);
