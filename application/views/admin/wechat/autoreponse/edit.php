@@ -21,4 +21,4 @@
 
 </form>
 
-<div>您添加的内容将会以如下的形式表现：回复@Title获得@Introduce</div>
+<div>鎮ㄦ坊鍔犵殑鍐呭灏嗕細浠ュ涓嬬殑褰㈠紡琛ㄧ幇锛氬洖澶岪Title鑾峰緱@Introduce</div>
