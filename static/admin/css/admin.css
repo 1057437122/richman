@@ -1,7 +1,8 @@
 .clr{clear:both;}
 .items{overflow:hidden;}
-.Id{float:left;width:10%;}
-.title{float:left;width:20%;}
+.Id{float:left;width:5%;}
+.title{float:left;width:10%;}
+.introcude{float:left;width:15%;}
 .answer{float:left;width:40%;}
 .edit{float:left;width:10%;}
 .active{float:left;width:10%;}

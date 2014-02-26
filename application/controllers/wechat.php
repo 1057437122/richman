@@ -13,10 +13,22 @@ class Wechat extends CI_Controller
 		parent::__construct();
 #		$this->load->helper('url');
 		$this->load->library('wecore');
-		$this->welcome='欢迎关注Leepine，回复“聚会时间”获得长春里教堂一周的聚会时间，回复“事工宣布”获得长春里教堂的事工，回复“呼召”查看长春里教堂的呼召情况，回复“群直播”获得长春里教堂群直播详细信息，回复“建议 你的建议”向长春里教堂建议提建议，请注意建议后面需要有个空格';
+		$this->welcome='';
+	}
+	public function set_welcome(){
+		$this->load->model('autoresponse_model');
+		$sql='select title,introduce from rich_autoresponse';
+		$query=$this->autoresponse_model->db->query($sql);
+		$welcome='欢迎关注Leepine，';
+		foreach($query->result_array() as $item){
+			$welcome.='回复"'.$item['title'].'"获得'.$item['introduce'].";<br>";
+		}
+		return $welcome;
 	}
 	public function valid1()
     {
+		$test=$this->set_welcome();
+		echo $test;
         // $echoStr = $_GET["echostr"];
 
         //valid signature , option
@@ -24,23 +36,24 @@ class Wechat extends CI_Controller
         	// echo $echoStr;
         	// exit;
         // }
-		$request='jy 我是 一兵';
-		$pos=strpos($request,' ');//get the position of the blank
-		$pre=substr($request,0,$pos);
-		print $pre;
-		if($pre==='jy'){//suggestions
-			$suggestion=trim(substr($request,$pos));
-		$username='oa918jtUwbNzzE3G-6YYIPvhXJbm';
-			$this->load->model('suggestion_model');
-			if($this->suggestion_model->save_suggestion($suggestion,$username)){
-				$msg=array('answer'=>'we got it,thx');
-			}
-		}
-		print_r($msg);
+		// $request='jy 我是 一兵';
+		// $pos=strpos($request,' ');//get the position of the blank
+		// $pre=substr($request,0,$pos);
+		// print $pre;
+		// if($pre==='jy'){//suggestions
+			// $suggestion=trim(substr($request,$pos));
+		// $username='oa918jtUwbNzzE3G-6YYIPvhXJbm';
+			// $this->load->model('suggestion_model');
+			// if($this->suggestion_model->save_suggestion($suggestion,$username)){
+				// $msg=array('answer'=>'we got it,thx');
+			// }
+		// }
+		// print_r($msg);
     }
 
     public function valid()
     {
+		$this->welcome=$this->set_welcome();
 	    $this->wecore->init();
 		if($this->wecore->postObj->MsgType=='text'){//text type
 			$request=trim((string)$this->wecore->postObj->Content);

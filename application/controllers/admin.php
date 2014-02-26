@@ -39,6 +39,7 @@ class Admin extends CI_Controller {
 					
 					$this->form_validation->set_rules('title','title','required');
 					$this->form_validation->set_rules('answer','answer','required');
+					$this->form_validation->set_rules('introduce','introduce','required');
 					
 					if($this->form_validation->run()===false){
 						$this->load->view('admin/header',$this->data);

@@ -27,7 +27,8 @@ class Autoresponse_model extends CI_Model{
 	public function add(){
 		$data=array(
 			'title'=>$this->input->post('title'),
-			'answer'=>$this->input->post('answer')
+			'answer'=>$this->input->post('answer'),
+			'introduce'=>$this->input->post('introduce')
 		);
 		if($this->db->get_where($this->autoresponse_table,array('title'=>$data['title']))->result_array()){//if exists
 			return FALSE;
@@ -37,7 +38,8 @@ class Autoresponse_model extends CI_Model{
 	public function edit($id){
 		$data=array(
 			'title'=>$this->input->post('title'),
-			'answer'=>$this->input->post('answer')
+			'answer'=>$this->input->post('answer'),
+			'introduce'=>$this->input->post('introduce')
 		);
 		$this->db->where('id',$id);
 		return $this->db->update($this->autoresponse_table,$data);
