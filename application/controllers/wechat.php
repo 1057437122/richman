@@ -13,7 +13,7 @@ class Wechat extends CI_Controller
 		parent::__construct();
 #		$this->load->helper('url');
 		$this->load->library('wecore');
-		$this->welcome='欢迎关注Leepine，回复“聚会时间”获得长春里教堂一周的聚会时间，回复“事工宣布”获得长春里教堂的事工';
+		$this->welcome='欢迎关注Leepine，回复“聚会时间”获得长春里教堂一周的聚会时间，回复“事工宣布”获得长春里教堂的事工，回复“呼召”查看长春里教堂的呼召情况，回复“群直播”获得长春里教堂群直播详细信息，回复“建议 你的建议”向长春里教堂建议提建议，请注意建议后面需要有个空格';
 	}
 	public function valid1()
     {
