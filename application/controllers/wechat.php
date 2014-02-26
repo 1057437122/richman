@@ -24,10 +24,10 @@ class Wechat extends CI_Controller
         	// echo $echoStr;
         	// exit;
         // }
-		$request='fse';
-		$this->load->model('autoresponse_model');
-		$msg=$this->autoresponse_model->get_answer($request);
-		print_r($msg);
+		$request='jy 我是 一兵';
+		$pos=strpos($request,' ');//get the position of the blank
+		$pre=substr($request,0,$pos);
+		print $pre;
     }
 
     public function valid()
@@ -37,7 +37,7 @@ class Wechat extends CI_Controller
 			$request=trim((string)$this->wecore->postObj->Content);
 			$pos=strpos($request,' ');//get the position of the blank
 			$pre=substr($request,0,$pos);//get the prefix of the request
-			if($pre==='建议'){//suggestions
+			if($pre==='jy'){//suggestions
 				$suggestion=trim(substr($request,$pos));
 				$username=$this->wecore->postObj->FromUserName;
 				$this->load->model('suggestion_model');
