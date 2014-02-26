@@ -54,7 +54,28 @@ class Admin extends CI_Controller {
 					}
 					
 				}elseif($op=='edit'){
-					echo "edit ''";
+					$this->load->helper('form');
+					$this->load->library('form_validation');
+					
+					$this->form_validation->set_rules('title','title','required');
+					$this->form_validation->set_rules('answer','answer','required');
+					
+					$this->data['id']=$id;
+					$this->data['info']=$this->autoresponse_model->get_item_by_id($id);
+					
+					if($this->form_validation->run()===false){
+						$this->load->view('admin/header',$this->data);
+						$this->load->view('admin/wechat/autoreponse/edit',$this->data);
+						$this->load->view('admin/footer');
+					}else{
+						//execute the sql and insert item
+						if($this->autoresponse_model->edit($id)){
+							$this->load->view('admin/success');
+						}else{
+							$this->load->view('admin/fail');
+						}
+						
+					}
 				}elseif($op=='Setinactive'){
 					$this->autoresponse_model->Setinactive($id);
 					$this->data['autoresponse_list']=$this->autoresponse_model->get_all_response();

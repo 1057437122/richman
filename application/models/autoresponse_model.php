@@ -16,6 +16,10 @@ class Autoresponse_model extends CI_Model{
 		$query=$this->db->get_where($this->autoresponse_table, array('title' => $title,'isactive'=>'1'));
 		return $query->row_array();
 	}
+	public function get_item_by_id($id){
+		$query=$this->db->get_where($this->autoresponse_table,array('id'=>$id));
+		return $query->row_array();
+	}
 	public function get_all_response(){
 		$query=$this->db->get($this->autoresponse_table);
 		return $query->result_array();
@@ -29,6 +33,14 @@ class Autoresponse_model extends CI_Model{
 			return FALSE;
 		}
 		return $this->db->insert($this->autoresponse_table,$data);
+	}
+	public function edit($id){
+		$data=array(
+			'title'=>$this->input->post('title'),
+			'answer'=>$this->input->post('answer')
+		);
+		$this->db->where('id',$id);
+		return $this->db->update($this->autoresponse_table,$data);
 	}
 	public function Setinactive($id){
 		$data=array(
@@ -45,6 +57,6 @@ class Autoresponse_model extends CI_Model{
 		$this->db->update($this->autoresponse_table,$data);
 	}
 }
-/*End of file question_model.php
-*Location:application/models/question_model.php
+/*End of file autoresponse_model.php
+*Location:application/models/autoresponse_model.php
 */
