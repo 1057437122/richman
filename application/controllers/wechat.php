@@ -28,6 +28,15 @@ class Wechat extends CI_Controller
 		$pos=strpos($request,' ');//get the position of the blank
 		$pre=substr($request,0,$pos);
 		print $pre;
+		if($pre==='jy'){//suggestions
+			$suggestion=trim(substr($request,$pos));
+		$username='1111';
+			$this->load->model('suggestion_model');
+			if($this->suggestion_model->save_suggestion($suggestion,$username)){
+				$msg=array('answer'=>'we got it,thx');
+			}
+		}
+		print_r($msg);
     }
 
     public function valid()
@@ -39,10 +48,11 @@ class Wechat extends CI_Controller
 			$pre=substr($request,0,$pos);//get the prefix of the request
 			if($pre==='jy'){//suggestions
 				$suggestion=trim(substr($request,$pos));
-				$username=$this->wecore->postObj->FromUserName;
+				//$username=$this->wecore->postObj->FromUserName;
+				$username='1111';
 				$this->load->model('suggestion_model');
 				if($this->suggestion_model->save_suggestion($suggestion,$username)){
-					$msg=array('answer'=>'你的建议已经提交，感谢您的参与，谢谢，愿神祝福你');
+					$msg=array('answer'=>'您的建议已经提交，感谢您的参与，愿神祝福你');
 				}else{
 					$msg=array('answer'=>$this->welcome);
 				}
