@@ -20,7 +20,7 @@ class Admin extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->data['base_url']=$this->config->item('base_url');
-		$this->load->model('autoresponse_model');
+		
 	}
 	public function index()
 	{
@@ -32,6 +32,7 @@ class Admin extends CI_Controller {
 				echo 'add pages later ,wechat background index page';
 				break;//index page
 			case 'autoresponse':
+				$this->load->model('autoresponse_model');
 				if($op=='add'){//add auto response items
 					$this->load->helper('form');
 					$this->load->library('form_validation');
@@ -101,6 +102,20 @@ class Admin extends CI_Controller {
 					$this->load->view('admin/footer.php');
 				}
 				break;//case autoresponse
+			case 'suggestion':
+				$this->load->model('suggestion_model');
+				if($op=='Setactive'){
+				}else{//show index
+					if(!file_exists('application/views/admin/wechat/suggestion/index.php')){
+						show_404();
+					}
+					$this->data['suggestion_list']=$this->suggestion_model->get_all_suggestion();
+					
+					$this->load->view('admin/header.php',$this->data);
+					$this->load->view('admin/wechat/suggestion/index.php',$this->data);
+					$this->load->view('admin/footer.php');
+				}
+				break;
 			default:
 				show_404();
 		}
