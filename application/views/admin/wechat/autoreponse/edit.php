@@ -20,3 +20,5 @@
 	<input type="submit" name="submit" value="Update" />
 
 </form>
+
+<div>您添加的内容将会以如下的形式表现：回复@Title获得@Introduce</div>

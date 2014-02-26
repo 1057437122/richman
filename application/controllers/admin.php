@@ -61,6 +61,7 @@ class Admin extends CI_Controller {
 					
 					$this->form_validation->set_rules('title','title','required');
 					$this->form_validation->set_rules('answer','answer','required');
+					$this->form_validation->set_rules('introduce','introduce','required');
 					
 					$this->data['id']=$id;
 					$this->data['info']=$this->autoresponse_model->get_item_by_id($id);

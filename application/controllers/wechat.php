@@ -21,8 +21,9 @@ class Wechat extends CI_Controller
 		$query=$this->autoresponse_model->db->query($sql);
 		$welcome='欢迎关注Leepine，';
 		foreach($query->result_array() as $item){
-			$welcome.='回复"'.$item['title'].'"获得'.$item['introduce'].";<br>";
+			$welcome.='回复"'.$item['title'].'"获得'.$item['introduce'].";";
 		}
+		$welcome.='回复"建议 +你的建议"向本堂提建议，注意建议后面有个空格';
 		return $welcome;
 	}
 	public function valid1()
