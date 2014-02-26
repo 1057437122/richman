@@ -48,9 +48,11 @@ class Wechat extends CI_Controller
 			$pre=substr($request,0,$pos);//get the prefix of the request
 			if($pre==='jy'){//suggestions
 				$suggestion=trim(substr($request,$pos));
-				$username=string($this->wecore->postObj->FromUserName);
+				#$username=$this->wecore->postObj->FromUserName;//this caused why 
+				$username='cannot insert';
+				$time=time();
 				$this->load->model('suggestion_model');
-				if($this->suggestion_model->save_suggestion($suggestion,$username)){
+				if($this->suggestion_model->save_suggestion($suggestion,$username,$time)){
 					$msg=array('answer'=>'您的建议已经提交，感谢您的参与，愿神祝福你');
 				}else{
 					$msg=array('answer'=>$this->welcome);

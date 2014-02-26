@@ -13,10 +13,11 @@ class Suggestion_model extends CI_Model{
 		$query=$this->db->get($this->table);
 		return $query->result_array();
 	}
-	public function save_suggestion($str,$user){//save suggestion
+	public function save_suggestion($str,$user,$flag){//save suggestion flag is usually for time
 		$data=array(
 			'suggestion'=>$str,
-			'username'=>$user
+			'username'=>$user,
+			'flag'=>$flag
 		);
 		return $this->db->insert($this->table,$data);
 	}
