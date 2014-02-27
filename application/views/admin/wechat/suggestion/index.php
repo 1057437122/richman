@@ -1,6 +1,6 @@
 <a href=<?php echo $base_url.'index.php/admin/wechat/suggestion/add';?>>添加</a>
 <br>
-<div class="Id">ID</div><div class="username">USERNAME</div><div class="answer">SUGGESTION</div><div class="flag">FLAG</div><br>
+<div class="Id">ID</div><div class="username">USERNAME</div><div class="suggestion">SUGGESTION</div><div class="flag">FLAG</div><br>
 <?php foreach($suggestion_list as $item):?>
 <div class="items">
 <div class="Id"><?php echo $item['id'];?></div>
