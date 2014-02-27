@@ -17,7 +17,7 @@ class Wechat extends CI_Controller
 	}
 	public function set_welcome(){
 		$this->load->model('autoresponse_model');
-		$sql='select title,introduce from rich_autoresponse';
+		$sql='select title,introduce from rich_autoresponse where isactive="1"';
 		$query=$this->autoresponse_model->db->query($sql);
 		$welcome='欢迎关注Leepine，';
 		foreach($query->result_array() as $item){
