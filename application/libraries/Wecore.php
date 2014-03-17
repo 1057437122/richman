@@ -23,7 +23,7 @@ class Wecore
 			$ret='welcome to subscribe me~~~';
 			$this->send_text_msg($ret);
 		}else{
-			if($msg['type']='pic' && is_array($msg)){
+			if($msg['type']=='pic' && is_array($msg['item'])){
 				$this->send_pic_msg($msg['item']);
 			}else{
 				$this->send_text_msg($msg['item']['answer']);
@@ -62,7 +62,7 @@ class Wecore
 		$time=time();
 		$header=sprintf($picTplHead,$this->postObj->FromUserName,$this->postObj->ToUserName,$time,count($msg));
 		$content='';
-		foreach($item in $msg){
+		foreach($msg as $item){
 			$content.=sprintf($picTplContent,$item['title'],$item['answer'],$item['picurl'],$item['url']);
 		}
 		$resultStr=$header.$content.$picTplFooter;

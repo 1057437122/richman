@@ -82,8 +82,7 @@ class Wechat extends CI_Controller
 				}
 			}
 		}else{//other type
-			$msg=array('answer'=>$this->welcome);
-			$type='text';
+			$msg=array('type'=>'text','item'=>array('answer'=>$this->welcome));
 		}
 	    $this->wecore->response($msg);
     }
