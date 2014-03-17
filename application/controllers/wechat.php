@@ -67,20 +67,25 @@ class Wechat extends CI_Controller
 				$time=time();
 				$this->load->model('suggestion_model');
 				if($this->suggestion_model->save_suggestion($suggestion,$username,$time)){
-					$msg=array('answer'=>'您的建议已经提交，感谢您的参与，愿神祝福你');
+					$msg=array('type'=>'text','item'=>array('answer'=>'您的建议已经提交，感谢您的参与，愿神祝福你'));
 				}else{
-					$msg=array('answer'=>$this->welcome);
+					$msg=array('type'=>'text','item'=>array('answer'=>$this->welcome));
 				}
+			}elseif($request=='pic_tst'){
+				
+				$msg=array('type'=>'pic','item'=>array(0=>array('title'=>'nice','answer'=>'这是用来测试的这是用来测试的这是用来测试的这是用来测试的这是用来测试的这是用来测试的这是用来测试的这是用来测试的这是用来测试的这是用来测试的','picurl'=>'','url'=>''),
+							));
 			}else{//auto response
 				$this->load->model('autoresponse_model');
 				if(!$msg=$this->autoresponse_model->get_answer($request)){
-					$msg=array('answer'=>$this->welcome);
+					$msg=array('type'=>'text','item'=>array('answer'=>$this->welcome));
 				}
 			}
 		}else{//other type
 			$msg=array('answer'=>$this->welcome);
+			$type='text';
 		}
-	    $this->wecore->response($msg['answer']);
+	    $this->wecore->response($msg);
     }
 		
 	private function checkSignature()

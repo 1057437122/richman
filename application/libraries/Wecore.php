@@ -1,6 +1,8 @@
 <?php if(! defined('BASEPATH')) exit('No Direct script access allowed');
 /**
   * wechat core class 
+  * define array msg:$msg=array('type'=>'text','item'=>array('answer'=>text)) || $msg=array('type'=>'pic','item'=>array('0'=>array('title','answer','picurl','url'),'1'=>array('title','answer','picurl','url')))
+  
   */
 
 class Wecore
@@ -12,15 +14,21 @@ class Wecore
 		$postStr=$GLOBALS['HTTP_RAW_POST_DATA'];
 		if(!empty($postStr)){
 			$this->postObj=simplexml_load_string($postStr,'SimpleXMLElement',LIBXML_NOCDATA);
+		}else{
+			exit('Not Allowed');
 		}
 	}
-	public function response($msg=FALSE){
+	public function response($msg=FALSE){//$msg is an array which contains the information about the msg
 		if($msg===FALSE){
 			$ret='welcome to subscribe me~~~';
+			$this->send_text_msg($ret);
 		}else{
-			$ret=$msg;
+			if($msg['type']='pic' && is_array($msg)){
+				$this->send_pic_msg($msg['item']);
+			}else{
+				$this->send_text_msg($msg['item']['answer']);
+			}
 		}
-		$this->send_text_msg($ret);
 	}
 	public function send_text_msg($msg){//send text message
 		$textTpl = "<xml>
@@ -35,10 +43,30 @@ class Wecore
 		$resultStr=sprintf($textTpl,$this->postObj->FromUserName,$this->postObj->ToUserName,$time,$msg);
 		echo $resultStr;
 	}
-	public function get_msg(){//get the 
-	}
-	public function tst(){
-		echo 'nice';
+	public function send_pic_msg($msg){//$msg=array(0=>array('title'=>,'answer'=>,'picurl'=>..),1=>array(...))
+		$picTplHead="<xml>
+					<ToUserName><![CDATA[%s]]></ToUserName>
+					<FromUserName><![CDATA[%s]]></FromUserName>
+					<CreateTime>%s</CreateTime>
+					<MsgType><![CDATA[news]]></MsgType>
+					<ArticleCount>%d</ArticleCount>";
+		$picTplContent="<Articles>
+					<item>
+					<Title><![CDATA[%s]]></Title>
+					<Description><![CDATA[%s]]></Description>
+					<PicUrl><![CDATA[%s]]></PicUrl>
+					<Url><![CDATA[%s]]></Url>
+					</item>
+					</Articles>";
+		$picTplFooter="</xml>";
+		$time=time();
+		$header=sprintf($picTplHead,$this->postObj->FromUserName,$this->postObj->ToUserName,$time,count($msg));
+		$content='';
+		foreach($item in $msg){
+			$content.=sprintf($picTplContent,$item['title'],$item['answer'],$item['picurl'],$item['url']);
+		}
+		$resultStr=$header.$content.$picTplFooter;
+		echo $resultStr;
 	}
 }
 /*End of file Wecore.php */
