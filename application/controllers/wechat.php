@@ -124,6 +124,16 @@ class Wechat extends CI_Controller
 				不管，天父给了我们怎样的航向
 				让我，永远铭记，与你一起的过往
 				姑娘，我喜欢你，就是这样
+				如果，你是一只风筝
+				我愿，与你一样，一起飞翔
+				让我们，把线放在天父手中
+				让他，指引我们的方向
+				哪怕，经过再大的风浪
+				有他，有你，就是幸福，就是天堂
+				不管，我们将飞向何方
+				不管，天父给了我们怎样的航向
+				让我，永远铭记，与你一起的过往
+				姑娘，我喜欢你，就是这样
 				','picurl'=>'http://b261.photo.store.qq.com/psb?/V10Ul8fu1IM2AK/enMnDq66jgBzPknMewMAwg1rsZMY8XvpPHcUYLHv4xc!/b/YeyWlJs5KAAAYrW0mptPKAAA&bo=bQItAQAAAAABAGQ!','url'=>''),
 							));
 			}else{//auto response
