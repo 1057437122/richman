@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>this is index pages</title>
+	<title>this is we web index pages</title>
 
 </head>
 <body>
-this is index
+this is we web index
 <div id="container">
 	
 </div>

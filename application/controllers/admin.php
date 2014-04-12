@@ -26,8 +26,17 @@ class Admin extends CI_Controller {
 	{
 		$this->load->view('admin/index');
 	}
-	public function weweb(){//for the we site
-		
+	public function weweb($item='',$op='',$id=''){//for the we site
+		switch($item){
+			case '':
+				echo 'add later';
+				break;
+			case 'addcat':
+				echo 'add category';
+				break;
+			default:
+				echo 'none';
+		}
 	}
 	
 	public function wechat($item='',$op='',$id=''){
