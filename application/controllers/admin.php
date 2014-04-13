@@ -31,8 +31,25 @@ class Admin extends CI_Controller {
 			case '':
 				echo 'add later';
 				break;
-			case 'addcat':
-				echo 'add category';
+			case 'cat':
+				$this->load->model('category_model');
+				if($op=='add'){//add category
+					$this->data['catid']=array('1'=>'nice','2'=>'secon','4'=>'what');
+					
+					$this->load->helper('form');
+					$this->load->library('form_validation');
+					
+					$this->form_validation->set_rules('name','name','required');
+
+					if($this->form_validation->run()==false){
+						$this->load->view('admin/header',$this->data);
+						$this->load->view('admin/weweb/cat/add',$this->data);
+						$this->load->view('admin/footer');
+					}else{
+						echo 'add in database~~';
+					}
+					
+				}
 				break;
 			default:
 				echo 'none';
