@@ -29,7 +29,7 @@
 			upload_complete_handler : uploadComplete,
 
 			// Button Settings
-			button_image_url : "<?php echo $base_url;?>static/plugins/swfupload/images/SmallSpyGlassWithTransperancy_17x18.png",
+			button_image_url : "<?php echo $base_url;?>static/plugins/swfupload/images/TestImageNoText_65x29.png",
 			button_placeholder_id : "spanholder",
 			button_width: 180,
 			button_height: 18,
@@ -44,7 +44,7 @@
 			flash_url : "<?php echo $base_url;?>static/plugins/swfupload/swfupload.swf",
 
 			custom_settings : {
-				upload_target : "divFileProgressContainer"
+				upload_target : "target"
 			},
 			
 			// Debug Settings
@@ -71,6 +71,8 @@
 	
 	<label for='bkpic' name='bkpic'><div id="spanholder"></div></label>
 	<br>
+	<div id="target" ></div>
+	<div id="thumbnails"></div>
 	
 	<textarea name='description'></textarea>
 	<br>

@@ -183,21 +183,24 @@ class Admin extends CI_Controller {
 			'image/bmp',  
 			'image/x-png'  
 		); 
-		$destination_folder=$this->data['base_url']."static/upload";
-		if (!is_uploaded_file($_FILES["upfile"]["tmp_name"])){
-			exit("no file");
+		$destination_folder=$this->data['base_url']."static/upload/";
+		if (!isset($_FILES["Filedata"]) || !is_uploaded_file($_FILES["Filedata"]["tmp_name"]) || $_FILES["Filedata"]["error"] != 0) {
+			echo "ERROR:invalid upload";
+			exit(0);
 		}
-		$file = $_FILES["upfile"];
+		//print_r($_FILES);
+		$file = $_FILES["Filedata"];
 		$filename=$file["tmp_name"];  
 		$image_size = getimagesize($filename);  
 		$pinfo=pathinfo($file["name"]);  
 		$ftype=$pinfo['extension'];  
 		$destination = $destination_folder.time().".".$ftype; 
-		if(!move_uploaded_file ($filename, $destination))  
-		{  
-			echo "移动文件出错";  
-			exit;  
-		}
+		
+		// if(!move_uploaded_file ($filename, $destination))  
+		// {  
+			// echo "移动文件出错";  
+			// exit;  
+		// }
 	}//uploadimg
 }
 
