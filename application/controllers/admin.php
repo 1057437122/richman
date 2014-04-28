@@ -174,6 +174,7 @@ class Admin extends CI_Controller {
 		}
 	}//public function wechat
 	public function uploadimg($flag=''){
+		
 		$uptypes=array(  
 			'image/jpg',  
 			'image/jpeg',  
@@ -183,7 +184,8 @@ class Admin extends CI_Controller {
 			'image/bmp',  
 			'image/x-png'  
 		); 
-		$destination_folder=$this->data['base_url']."static/upload/";
+		//$destination_folder=$this->data['base_url']."static/upload/";
+		$destination_folder="./static/upload/";
 		if (!isset($_FILES["Filedata"]) || !is_uploaded_file($_FILES["Filedata"]["tmp_name"]) || $_FILES["Filedata"]["error"] != 0) {
 			echo "ERROR:invalid upload";
 			exit(0);
@@ -196,11 +198,11 @@ class Admin extends CI_Controller {
 		$ftype=$pinfo['extension'];  
 		$destination = $destination_folder.time().".".$ftype; 
 		
-		// if(!move_uploaded_file ($filename, $destination))  
-		// {  
-			// echo "移动文件出错";  
-			// exit;  
-		// }
+		if(!move_uploaded_file ($filename, $destination))  
+		{  
+			echo "移动文件出错";  
+			exit;  
+		}
 	}//uploadimg
 }
 
